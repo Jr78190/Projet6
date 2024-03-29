@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
@@ -78,6 +79,33 @@ h1 > span {
 ;
 }
 
+.btn-all {
+	font-family: 'Syne';
+	padding-left: 21%;
+	display: flex;
+	margin: 50px;
+}
+
+.btnC {
+	height: 40px;
+	width: 170px;
+	border-radius: 50px;
+	background-color: white;
+	border-color: #1D6154;
+	color: #1D6154;
+	margin: 5px;
+	font-family: 'Syne';
+}
+
+.btnC:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
+.fa-regular.fa-pen-to-square {
+	font-size: 40px;
+}
+
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -121,6 +149,7 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
@@ -169,20 +198,163 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+/* CSS LOGIN*/
+
+.login-gras {
+    font-weight: bold;
+}
+
+.login-couleur {
+	background-color: rgb(255, 254, 248);
+}
+
+.titre-login{
 	font-family: 'Syne';
-	font-weight: 700;
+	margin-right: 50%;
+}
+
+.login-all {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	margin-top:10%;
+	margin-left: 30%;
+}
+
+.login-all label {
+	display: flex;
+	justify-content: left;
+	margin-top:5%;
+	font-family: 'Syne';
+}
+
+.login-all input {
+	border: none; 
+	background-color: rgb(255, 255, 255);
+	width: 379px;
+	height: 51px;
+	margin-top: 1%;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.connexion {
+	height: 40px;
+	width: 200px;
+	border-radius: 50px;
+	background-color: white;
+	border-color: #1D6154;
+	color: #1D6154;
+	margin-top: 5%;
+	font-family: 'Syne';
+	margin-left: 12%;
+}
+
+.connexion:hover {
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+}
+
+.login-all a {
+	color: black;
+	margin-right: 50%;
+	margin-top: 3%;
+	font-family: 'Syne';
 }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+
+.fa-regular.fa-pen-to-square {
+    font-size: 1.5vw;
+    margin-left: 30px;
+	margin-top: 20px;
+}
+
+.btn-modifier {
+	margin-left: 65px;
+}
+/* 
+.modal {
+	position: fixed;
+    top: 10%;
+    left: 30%;
+    z-index: 9999; 
+	width: 600px;
+	height: 520px; 
+  }
+
+  .modal-content {
+	display: none;
+	background-color: rgb(255, 0, 0);
+	padding: 20px;
+	width: 600px;
+	height: 520px;
+	border-radius: 8px;
+}  */
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+  }
+  
+
+.modal h2 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    padding-top: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 100;
+	color: black;
+}
+
+.fa-solid.fa-xmark {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+	font-size: 1.5vw;
+    cursor: pointer;
+}
+
+
+.btn-ajout {
+	position: absolute;
+    bottom: 5%;
+	left: 30%;
+	z-index: 990;
+	height: 40px;
+	width: 250px;
+	border-radius: 50px;
+	color: white;
+	border: none;
+	background-color: #1D6154;
+	margin: 5px;
+	font-family: 'Syne';
+}
+.gallery {
+    /* Styles de la galerie */
 }
 
