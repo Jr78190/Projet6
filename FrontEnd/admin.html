@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -36,32 +36,62 @@
         </article>
     </section>
     <section id="portfolio">
+        <div class="textmodal-modification">
             <h2>Mes Projets</h2>    
-            <a href="#">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <p id="myBtn">Open Modal</p>
-            </a>      
-          
+            <div>
+                <i class="fa-regular fa-pen-to-square"></i> 
+                <p class="modification btn-open">modifier</p> 
+            </div>
+        </div>           
+        <div class="overlay hidden">
+        </div>
+        
+    </section>
+    
+    <section class="modal hidden">
+        <div class="modal-contenu">
+            <h2>Galerie photo</h2>
+            <div class="modal-image"></div>
+            <p class="btn-close">⨉</p>
+        </div>
+        
+        <button type="submit" class="btn-ajout">Ajouter une photo</button>
     </section>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <!-- <span class="close">&times;</span>  -->
-            <form method="dialog">
-                <div>
-                    <h2>Galerie photo</h2>
-                    <i class="fa-solid fa-xmark" id="close-modal"></i>
-                    <div class="gallery" id="works-list-modal">
-                    </div>  
-                    <button type="submit" class="btn-ajout">Ajouter une photo</button>
+    <section class="modal hidden" id="second-modal">
+        <div class="new-modal-contenu">
+            <h2>Ajout photo</h2>
+            <p class="btn-return">🠔</p>
+            <p class="btn-close2">⨉</p>
+            <form action="" method="post" class="all-form" id="WorksForm">
+                <div class="css-image-all">
+                    <img class="img-fond" src="./assets/images/motagne.png.png" alt="Montagne">
+                    <input type="file" id="ajout-image">
+                    <label for="ajout-image" class="btn-ajout-image"><p class="text-ajout-image" >+ Ajouter Photo</p></label>
+                    <p class="sousT">jpg, png : 4mo max</p>
+                  </div>
+                <div class="css-titre-all">
+                  <label>Titre </label>
+                  <input type="text" id="ajout-titre" required />
+                  <label for="view-categories">Catégorie </label>
+                  <select id="view-categories">
+                    <option value=""></option>
+                    <option value="Objets">Objets</option>
+                    <option value="Appartements">Appartements</option>
+                    <option value="Hotels & restaurants">Hotels & restaurants</option>
+                  </select>
                 </div>
-            </form>
+                <button type="submit" class="btn-ajout">Valider</button>
+              </form>
         </div>
-    </div>
+    </section>
+    
 
+    
     <div class="gallery" id="works-list">
     </div>
-	
+    
+
     <section id="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
@@ -86,4 +116,4 @@
 </footer>
 <script src="/Portfolio-architecte-sophie-bluel/FrontEnd/script.js"></script>   
 </body>
-</html>
+</html> -->

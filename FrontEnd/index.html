@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
@@ -13,7 +14,7 @@
 <body>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
+	<nav class="section-home">
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
@@ -21,11 +22,20 @@
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+	<!-- Admin -->
+	<nav class="section-admin">
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li><a href="./login.html" id="logout">logout</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
 </header>
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img src="./assets/images/sophie-bluel.png" alt=" Sophie">
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -34,7 +44,7 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	<section id="portfolio">
+	<section  class="section-home" id="portfolio">
 		<h2>Mes Projets</h2>
 		<div class="btn-all">
 		  <button class="btnC">Tous</button>
@@ -42,10 +52,62 @@
 		  <button class="btnC" id="2">Appartements</button>
 		  <button class="btnC" id="3">Hotels & Restaurants</button> 
 		</div>
-		<div class="gallery" id="works-list">
+	</section>
+	<!-- Admin -->
+	<section class="section-admin" id="portfolio-admin">
+		<div class="textmodal-modification">
+			<h2>Mes Projets</h2>   
+			 
+			<div>
+				<i class="fa-regular fa-pen-to-square"></i> 
+				<p class="modification btn-open">modifier</p> 
+			</div>
+		</div>           
+		<div class="overlay hidden">
 		</div>
 	</section>
-	
+
+	<section class="modal hidden">
+		<div class="modal-contenu">
+			<h2>Galerie photo</h2>
+			<div class="modal-image" ></div>
+			<p class="btn-close">⨉</p>
+		</div>
+
+		<button type="submit" class="btn-ajout">Ajouter une photo</button>
+	</section>
+
+	<section class="modal hidden" id="second-modal">
+		<div class="new-modal-contenu">
+			<h2>Ajout photo</h2>
+			<p class="btn-return">🠔</p>
+			<p class="btn-close2">⨉</p>
+			<form class="all-form" id="WorksForm">
+				<div class="css-image-all">
+					<img class="img-fond" src="./assets/images/motagne.png" alt="Montagne fond">
+					<input type="file" id="ajout-image">
+					<label for="ajout-image" class="btn-ajout-image"><p class="text-ajout-image" >+ Ajouter Photo</p></label>
+					<p class="sousT">jpg, png : 4mo max</p>
+				</div>
+				<div class="css-titre-all">
+					<label for="ajout-titre">Titre</label>
+					<input type="text" id="ajout-titre" required />
+					<label for="view-categories">Catégorie</label>
+					<select id="view-categories">
+						<option value=""></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hotels & restaurants">Hotels & restaurants</option>
+					</select>
+				</div>
+				<button type="submit" class="btn-ajout">Valider</button>
+			</form>
+		</div>
+	</section>
+
+	<div class="gallery" id="works-list">
+	</div>
+
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
