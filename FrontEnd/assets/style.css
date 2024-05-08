@@ -22,6 +22,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	margin-top: 5px;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -162,8 +163,15 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
+.login-home-admin {
+	text-decoration: none;
+	color: black;
+}
+
 .gallery img {
 	width: 100%;
+	height: 500px; /* image acceuil */
+	object-fit: cover;
 
 }
 #contact {
@@ -283,14 +291,35 @@ footer nav ul {
 /* Parie Admin et Home */
 
 .section-home {
-	display: none;
+	display: block;
 }
 
  .section-admin {
-	display: block;
+	display: none;
 } 
 
 
+/* Bande Admin */
+
+.bande-admin {
+	display: none;
+	position: absolute;
+	background: black;
+	top: -5px;
+	height: 40px;
+	right: 0px;
+	width: 100%;
+}
+
+.bande-admin-texte {
+	display: flex;
+	justify-content: center;
+	color: rgb(255, 255, 255);
+}
+
+.bande-admin-texte p {
+	margin-left: 5px;
+}
 
 /* Modal */
 
@@ -301,15 +330,19 @@ footer nav ul {
 } 
 
 .fa-regular.fa-pen-to-square { 
-	margin-bottom: 45px;
+	margin-bottom: 25px;
+}
+
+.css-modifier-login {
+	display:flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .modification {
-	position: absolute;
-	bottom: 120px;
-	margin-left: 65px;
+	margin-left: 15px;
     font-weight: 500;
-	font-size: 1.2rem;
+	font-size: 1.2rem; 
 } 
 
 .overlay {
@@ -347,25 +380,41 @@ footer nav ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
     gap: 20px;  
-    margin-top: 40px; 
 	padding-left: 10%;
 	padding-right: 10%;
-   
 }
 
 
 .modal-image img {
 	width:100%;
+	height: 110px;  /* image modal*/
+	object-fit: cover;
 }
 
 .fa-solid.fa-trash-can {
 	position: absolute;
-	width: 20px; 
-	height: 25px;
+	width: 18px; 
+	height: 20px;
 	margin-top: 15px;
 	margin-left: -25px;
-	color: white; 
+	color: rgb(255, 255, 255); 
+}
 
+.border {
+	position: absolute;
+	bottom: -49px;
+	left: 80px;
+	border-top: 2px solid;
+	height: 20px;
+	width: 80%;
+	color: #B3B3B3
+}
+
+.icon-background {
+	background-color: black;
+    border-radius: 2px;
+	padding-top: 5px;
+	padding-left: 2px;
 }
 
 .modal h2 {
@@ -422,6 +471,16 @@ footer nav ul {
 	cursor: pointer;
  }
 
+.border2 {
+	position: absolute;
+	bottom: -60px;
+	left: 140px;
+	border-top: 2px solid;
+	height: 20px;
+	width: 67%;
+	color: #B3B3B3
+}
+
 .css-image-all {
 	display: flex;
 	justify-content: center;
@@ -439,6 +498,13 @@ footer nav ul {
     height:90px;
 	margin-top: 3%;
 }
+.img-choisi {
+    width: 200px;
+    height:220px;
+	margin-top: 0;
+	z-index: 3;
+	object-fit: cover;
+}
 
 .btn-ajout-image {
 	position: absolute;
@@ -453,7 +519,7 @@ footer nav ul {
 }
 
 .text-ajout-image {
-	font-size: 1.3vw;
+	font-size: 1rem;
     padding-left:19%;
 	padding-top: 4%;
 }
@@ -474,6 +540,7 @@ footer nav ul {
 	display: flex;
 	margin-top:4%;
 	font-weight: 400;
+	width: 200px;
 }
 
 .css-titre {

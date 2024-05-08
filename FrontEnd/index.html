@@ -12,22 +12,19 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+	<div class="bande-admin">
+		<div class="bande-admin-texte">
+			<i class="fa-solid fa-pen-to-square"></i>
+			<p>Mode édition</p>
+		</div>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav class="section-home">
+	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="./login.html">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
-	<!-- Admin -->
-	<nav class="section-admin">
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li><a href="./login.html" id="logout">logout</a></li>
+			<li><a href="./login.html" class="login-home-admin" id="login">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -58,7 +55,7 @@
 		<div class="textmodal-modification">
 			<h2>Mes Projets</h2>   
 			 
-			<div>
+			<div class="css-modifier-login">
 				<i class="fa-regular fa-pen-to-square"></i> 
 				<p class="modification btn-open">modifier</p> 
 			</div>
@@ -73,7 +70,7 @@
 			<div class="modal-image" ></div>
 			<p class="btn-close">⨉</p>
 		</div>
-
+        <div class="border"></div>
 		<button type="submit" class="btn-ajout">Ajouter une photo</button>
 	</section>
 
@@ -95,11 +92,9 @@
 					<label for="view-categories">Catégorie</label>
 					<select id="view-categories">
 						<option value=""></option>
-						<option value="Objets">Objets</option>
-						<option value="Appartements">Appartements</option>
-						<option value="Hotels & restaurants">Hotels & restaurants</option>
 					</select>
 				</div>
+				<div class="border2"></div>
 				<button type="submit" class="btn-ajout">Valider</button>
 			</form>
 		</div>
