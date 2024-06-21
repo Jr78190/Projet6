@@ -1,3 +1,5 @@
+// Variable de contrôle pour vérifier si les travaux ont déjà été chargés
+let worksLoaded = false;
 // Fonction pour effectuer l'appel à l'API
 const apiUrl = 'http://localhost:5678/api/works';
 
@@ -34,6 +36,7 @@ function displayWorks(data) {
         // Attribution des attributs et du contenu
         img.src = work.imageUrl;
         img.alt = work.title;
+        img.dataset.imageId = work.id; // Utilisation de l'ID de l'image comme valeur de l'attribut data-image-id
         figcaption.textContent = work.title;
 
         // Ajout des éléments à la liste de travaux
@@ -92,40 +95,6 @@ filterButtons.forEach(button => {
     });
 });
 
-
-// Partie Login
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("loginId").addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        fetch("http://localhost:5678/api/users/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email, password: password })
-        })
-
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    alert("Adresse e-mail ou mot de passe incorrect.");
-                    throw new Error("Adresse e-mail ou mot de passe incorrect.");
-                }
-            })
-            .then(data => {
-                localStorage.setItem('userToken', data.token);
-                console.log("Redirection vers la page d'administration...");
-                window.location.href = "./index.html";
-            })
-            .catch(error => {
-                console.error("Erreur lors de la requête d'authentification:", error);
-            });
-    });
-});
-
 // Fonction pour mettre à jour l'affichage en fonction de la connexion de l'utilisateur
 const login = document.getElementById('login');
 function updateSectionDisplay() {
@@ -161,7 +130,7 @@ updateSectionDisplay();
 login.addEventListener('click', function (event) {
     event.preventDefault();
     localStorage.removeItem('userToken');
-    localStorage.clear();
+    localStorage.clear(); 
     window.location.href ='login.html';
 });
 
@@ -178,24 +147,28 @@ const secondModal = document.querySelector("#second-modal");
 const openModal = function () {
     modal.classList.remove("hidden");
     overlay.classList.remove("hidden");
+
+        // Vérifiez si les travaux ont déjà été chargés pour éviter plusieurs appels API
+        if (!worksLoaded) {
+            fetchWorksFromApi()
+                .then(data => {
+                    displayWorksImages(data); // Affiche les travaux dans la modal
+                    worksLoaded = true; 
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des travaux:', error);
+                });
+        }
 };
 
-// Écouteur d'événement pour ouvrir la modal
 openModalBtn.addEventListener("click", function () {
     openModal();
-    
-    // Appeler l'API et afficher les images des travaux dans la modal
-    fetchWorksFromApi()
-        .then(displayWorksImages)
-        .catch(error => {
-            console.error('Erreur lors de la récupération des travaux:', error);
-        });
-});
 
 // Ajout d'un événement pour ouvrir la deuxième modal
 addPhotoBtn.addEventListener("click", function () {
     secondModal.classList.remove("hidden");
     overlay.classList.remove("hidden");
+});
 });
 
 // Fonction pour fermer la modal
@@ -265,7 +238,24 @@ function displayWorksImages(data) {
     });
 }
 
-// Fonction pour supprimer une image de la galerie côté serveur
+// Fonction pour supprimer une image de la modal
+function deleteImageModal(imageId) {
+    const modalImg = document.querySelector(`.modal-image [data-image-id="${imageId}"]`);
+    if (modalImg) {
+        const modalFigure = modalImg.parentNode;
+        modalFigure.parentNode.removeChild(modalFigure);
+    }
+}
+
+function deleteImageGallery(imageId) {
+    const galleryImg = document.querySelector(`#works-list [data-image-id="${imageId}"]`);
+    if (galleryImg) {
+        const galleryFigure = galleryImg.parentNode;
+        galleryFigure.parentNode.removeChild(galleryFigure);
+    }
+}
+
+// Fonction pour supprimer une image de la galerie et de la modal
 function deleteImageById(imageId) {
     fetch(`http://localhost:5678/api/works/${imageId}`, {
         method: 'DELETE',
@@ -274,22 +264,26 @@ function deleteImageById(imageId) {
             'Authorization': `Bearer ${localStorage.getItem("userToken")}`
         }
     })
-
     .then(response => {
         if (!response.ok) {
             throw new Error('Erreur lors de la suppression de l\'image.');
         }
         console.log('Image supprimée avec succès.');
         alert('Image supprimée avec succès.');
+
+        deleteImageModal(imageId);
+
+        deleteImageGallery(imageId);
     })
     .catch(error => {
         console.error('Erreur lors de la suppression de l\'image :', error);
     });
 }
 
+
 // Fonction pour récupérer les catégories depuis l'API
 function fetchCategoriesFromApi() {
-    return fetch('http://localhost:5678/api/categories')
+    return fetchidde('http://localhost:5678/api/categories')
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -324,6 +318,8 @@ const worksList = document.getElementById('works-list');
 const inputImage = document.getElementById('ajout-image');
 const imgFond = document.querySelector('.img-fond');
 
+const ImgDefault = "./assets/images/montagne.png";
+
 inputImage.addEventListener('change', function(event) {
     const selectedImage = event.target.files[0];
     const imageURL = URL.createObjectURL(selectedImage);
@@ -335,7 +331,6 @@ inputImage.addEventListener('change', function(event) {
 
 addWorkForm.addEventListener('submit', function(event) {
     event.preventDefault(); 
-
     const formData = new FormData(); 
 
     // Récupérer les valeurs des champs du formulaire
@@ -359,7 +354,6 @@ addWorkForm.addEventListener('submit', function(event) {
         headers: {Authorization: `Bearer ${localStorage.getItem("userToken")}`},
         body: formData
     })
-
     .then(response => {
         if (!response.ok) {
             throw new Error('Erreur lors de l\'envoi de la requête.');
@@ -367,14 +361,17 @@ addWorkForm.addEventListener('submit', function(event) {
         return response.json(); 
     })
     .then(data => {
+        // Récupérer l'ID de l'image à partir des données de la réponse JSON
+        const imageId = data.id;
+    
         const figure = document.createElement('figure');
         
-        // Création de l'image
+        // Création de l'image dans la galerie 
         const img = document.createElement('img');
         img.src = URL.createObjectURL(imageFile);
         img.alt = title;
         
-        // Création de la légende
+        // Création de la légende dans la galerie 
         const figcaption = document.createElement('figcaption');
         figcaption.textContent = title;
         
@@ -382,18 +379,58 @@ addWorkForm.addEventListener('submit', function(event) {
         figure.appendChild(img);
         figure.appendChild(figcaption);
         
+        // Ajout de l'ID de l'image en tant qu'attribut data-image-id à la figure
+        figure.dataset.imageId = imageId;
+        
         // Ajout de la figure à la galerie des travaux
         worksList.appendChild(figure);
+    
+        const test = document.querySelector('.modal-image');
+        const figureModal = document.createElement('figure');
         
+        // Création de l'image dans la modal
+        const imgModal = document.createElement('img');
+        imgModal.src = URL.createObjectURL(imageFile);
+        imgModal.alt = title;
+    
+        
+        // Ajout de l'image à la figure dans la modal
+        figureModal.appendChild(imgModal);
+    
+        // Ajout de l'icône de suppression dans la modal
+        const NewdeleteIcon = document.createElement('i');
+        NewdeleteIcon.classList.add('icon-background', 'fa-solid', 'fa-trash-can'); 
+    
+        // Ajout de l'ID de l'image en tant qu'attribut data-image-id à l'icône de poubelle
+        NewdeleteIcon.dataset.imageId = imageId;
+    
+        // Ajout de l'écouteur d'événement pour supprimer l'image correspondante
+        NewdeleteIcon.addEventListener('click', function() {
+            const imageId = this.dataset.imageId;
+            // Demander confirmation avant de supprimer l'image
+            const confirmationDeleteImage = confirm("Êtes-vous sûr de vouloir supprimer cette image ?");
+            if (confirmationDeleteImage) {
+                deleteImageById(imageId, data);
+            }
+        });
+    
+        // Ajout de l'icône de suppression à la figure de la modal
+        figureModal.appendChild(NewdeleteIcon);
+    
+        // Ajout de la figure à la modal
+        test.appendChild(figureModal);
+    
         addWorkForm.reset();
+
+        // Remettre l'image par défaut
+        imgFond.src = ImgDefault;
+        imgFond.classList.remove('img-choisi');
     
-        closeModal(); 
-    
-        // Réinitialiser le champ de sélection de fichier
-        document.getElementById('ajout-image').value = null;
+        // Fermer toutes les modales après l'ajout de l'image
+        secondModal.classList.add("hidden");
     })
+    
     .catch(error => {
         console.error('Erreur :', error);
-
     });
 });
